@@ -4,7 +4,7 @@ setuptools.setup(
 
      name='betterfivem',  
 
-     scripts=['fivem'],
+     scripts=['fivem.py'],
      
      version='0.1',
 
