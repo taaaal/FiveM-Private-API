@@ -4,7 +4,7 @@ setuptools.setup(
 
      name='betterfivem',  
 
-     py_modules=["fivem"],
+     py_modules=["betterfivem"],
      
      version='0.1',
 
