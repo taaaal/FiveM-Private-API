@@ -14,8 +14,6 @@ setuptools.setup(
 
      description="A Python wrapper for the FIVEM API.",
 
-     packages=['asyncio'],
-
      classifiers=[
 
          "Programming Language :: Python :: 3",
