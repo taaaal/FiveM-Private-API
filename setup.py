@@ -4,6 +4,8 @@ setuptools.setup(
 
      name='fivem_private_api',  
 
+     scripts=['fivem'],
+     
      version='0.1',
 
      author="Tal Klaiderman",
