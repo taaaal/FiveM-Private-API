@@ -8,9 +8,6 @@ from datetime import datetime
 import base64
 from base64 import b64decode
 
-import os
-
-
 class Server:
     def __init__(self, serverip: str):
         self.serverip = serverip
@@ -115,7 +112,7 @@ class Server:
 
     @property
     def txt(self):
-        f = open(f"serverinfo.txt", "w")
+        f = open(f"./serverinfo.txt", "w")
         f.write("""  
         ______ _____ _   _ ________  ___    ___  ______ _____ 
         |  ___|_   _| | | |  ___|  \/  |   / _ \ | ___ \_   _|
