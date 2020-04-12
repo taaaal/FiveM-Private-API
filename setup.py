@@ -2,15 +2,13 @@ import setuptools
 
 setuptools.setup(
 
-     name='fivem_private_api',  
+     name='betterfivem',  
 
      scripts=['fivem'],
      
      version='0.1',
 
      author="Tal Klaiderman",
-
-     author_email="tak2004fa@gmail.com",
 
      description="A Python wrapper for the FIVEM API.",
 
