@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
 
-     name='FiveM | Private API',  
+     name='fivem_private_api',  
 
      version='0.1',
 
