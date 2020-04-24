@@ -14,7 +14,7 @@ class Server:
         self.serverinfo = {}
         self.serverinfo_vars = {}
         loop = asyncio.get_running_loop()
-        loop.create_task(self.getServer())
+        loop.run_until_complete()
 
     async def getServer(self):
 
