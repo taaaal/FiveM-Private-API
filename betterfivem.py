@@ -1,6 +1,7 @@
-import asyncio
+#import asyncio
 import json
-import aiohttp
+#import aiohttp
+import requests
 
 import datetime
 from datetime import datetime
@@ -13,23 +14,21 @@ class Server:
         self.serverip = serverip
         self.serverinfo = {}
         self.serverinfo_vars = {}
-        loop = asyncio.get_running_loop()
-        loop.run_until_complete(self.getServer())
 
-    async def getServer(self):
+    def getServer(self):
 
         try:
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(f"http://{self.serverip}/info.json") as r:
-                    re = json.loads(await r.text())
-                    self.serverinfo = re
-                    self.serverinfo_vars = re["vars"]
+                    firstR = requests.get(f"http://{self.serverip}/info.json")
+                    firstRE = json.loads(firstR.text)
+                    
+                    self.serverinfo = firstRE
+                    self.serverinfo_vars = firstRE["vars"]
                     # self.serverip = serverIp
-
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(f"http://{self.serverip}/players.json") as r:
-                    re = json.loads(await r.text())
-                    self.serverplayers = re
+                    
+                    secondR = requests.get(f"http://{self.serverip}/players.json")
+                    secondRE = json.loads(await secondR.text())
+                    
+                    self.serverplayers = secondRE
 
         except:
             return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."
