@@ -26,7 +26,7 @@ class Server:
                     # self.serverip = serverIp
                     
                     secondR = requests.get(f"http://{self.serverip}/players.json")
-                    secondRE = json.loads(await secondR.text())
+                    secondRE = json.loads(secondR.text)
                     
                     self.serverplayers = secondRE
 
