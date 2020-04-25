@@ -34,9 +34,6 @@ class Server:
             
             return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."
 
-
-
-
     #def stringToBase64(s):
     #    return base64.b64encode(s.encode('utf-8'))
 
