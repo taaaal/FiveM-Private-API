@@ -13,6 +13,7 @@ class Server:
     def __init__(self, serverIp: str):
         
         self.serverip = serverIp
+        self.serverstatus = 'ON'
         self.serverinfo = {}
         self.serverinfo_vars = {}
         self.serverplayers = {}
@@ -32,6 +33,7 @@ class Server:
 
         except:
             
+            self.serverstatus = 'OFF'
             return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."
 
     #def stringToBase64(s):
