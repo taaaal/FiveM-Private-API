@@ -10,14 +10,14 @@ import base64
 from base64 import b64decode
 
 class Server:
-    self.serverip = ''
-    self.serverinfo = {}
-    self.serverinfo_vars = {}
-    
     def __init__(self, serverIp: str):
-
+        
+        self.serverip = serverIp
+        self.serverinfo = {}
+        self.serverinfo_vars = {}
+        self.serverplayers = {}
+                
         try:
-                    self.serverip = serverIp
                 
                     firstR = requests.get(f"http://{self.serverip}/info.json")
                     firstRE = json.loads(firstR.text)
