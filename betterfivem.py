@@ -20,10 +20,10 @@ class Server:
         self.serverplayers = {}
                     
         try:
-                    serverReq = requests.get(f"http://{self.serverip}/info.json")
+                serverReq = requests.get(f"http://{self.serverip}/info.json")
         except:
-                    self.serverstatus = 'OFF'
-                    return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."           
+                self.serverstatus = 'OFF'
+                return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."           
                     
        serverInfo = json.loads(serverReq.text)
                                     
@@ -34,7 +34,6 @@ class Server:
        self.serverinfo_vars = serverInfo["vars"]
        self.serverplayers = playersReq
        self.serverstatus = 'ON'
-
 
     #def stringToBase64(s):
     #    return base64.b64encode(s.encode('utf-8'))
