@@ -21,6 +21,8 @@ class Server:
           
     def getserver(self, serverip): 
     
+        self.serverip = serverip
+    
         try:
                 serverReq = requests.get(f"http://{self.serverip}/info.json")
         except:
