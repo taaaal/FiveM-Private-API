@@ -11,14 +11,16 @@ from base64 import b64decode
 
 class Server:
     
-    def __init__(self, serverIp):
+    def __init__(self):
         
-        self.serverip = serverIp
+        self.serverip = ''
         self.serverstatus = ''
         self.serverinfo = {}
         self.serverinfo_vars = {}
         self.serverplayers = {}
-                    
+          
+  def getserver(self, serverip): 
+    
         try:
                 serverReq = requests.get(f"http://{self.serverip}/info.json")
         except:
