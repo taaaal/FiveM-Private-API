@@ -27,6 +27,7 @@ class Server:
                 serverReq = requests.get(f"http://{self.serverip}/info.json")
         except:
                 self.serverstatus = 'OFF'
+                self.online_players = '0/0'
                 return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."           
                     
         serverInfo = json.loads(serverReq.text)
@@ -85,6 +86,10 @@ class Server:
     @property
     def max_players(self):
         return self.serverinfo_vars.get("sv_maxClients", "No information about max players were specified for this server.")
+    
+    @property
+    def online_players(self):
+        return f"{len(self.serverplayers)}/{self.max_players}"
 
     @property 
     def tags(self):
@@ -95,12 +100,11 @@ class Server:
 
     @property 
     def top_tag(self):
-        tags = self.serverinfo_vars.get("tags", "This server has no tags.")
+        tags = self.tags
         if tags != 'This server has no tags':
             tags = list(tags.split(','))
-            tags = tags[0]
-        return tags   
-
+            toptag = tags[0]
+        return toptag   
 
     @property
     def version(self):
