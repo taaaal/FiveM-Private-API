@@ -37,7 +37,7 @@ class Server:
                     
         self.serverinfo = serverInfo
         self.serverinfo_vars = serverInfo["vars"]
-        self.serverplayers = playersReq
+        self.serverplayers = serverPlayers
         self.serverstatus = 'ON'
 
     #def stringToBase64(s):
