@@ -19,7 +19,7 @@ class Server:
         self.serverinfo_vars = {}
         self.serverplayers = {}
           
-  def getserver(self, serverip): 
+    def getserver(self, serverip): 
     
         try:
                 serverReq = requests.get(f"http://{self.serverip}/info.json")
@@ -27,7 +27,8 @@ class Server:
                 self.serverstatus = 'OFF'
                 return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."           
                     
-        serverInfo = json.loads(serverReq.text)                                    
+        serverInfo = json.loads(serverReq.text)
+        
         playersReq = requests.get(f"http://{self.serverip}/players.json")
         serverPlayers = json.loads(playersReq.text)
                     
