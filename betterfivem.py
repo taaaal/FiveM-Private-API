@@ -1,6 +1,7 @@
 #import asyncio
 import json
 #import aiohttp
+import os
 import requests
 
 import datetime
@@ -50,10 +51,10 @@ class Server:
     def icon(self):
         icon = self.serverinfo.get("icon", "This server has no icon.")
         if icon != 'This server has no icon.':
-            with open(r"server_icon.png", "wb") as f:
+            with open("server_icon.png", "wb") as f:
                 f.write(base64.b64decode(icon))
-            icon = f'The server icon has been saved on the API folder: {f.name}'
-        return icon
+            icon_status = f'The server icon has been saved on the API folder: {f.name} | {os.getcwd()}'
+      return icon_status
     
     @property
     def scripts(self):
