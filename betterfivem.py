@@ -103,7 +103,6 @@ class Server:
     def top_tag(self):
             tags = self.tags
             if tags != 'This server has no tags':
-                tags = list(tags.split(','))
                 toptag = tags[0]
             return toptag   
 
