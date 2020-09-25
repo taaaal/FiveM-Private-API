@@ -12,34 +12,31 @@ from base64 import b64decode
 
 class Server:
     
-    def __init__(self):
+    def __init__(self, server_ip: str):
+        self.server_ip = server_ip
+        self.getserver(self.server_ip)
         
-        self.serverip = ''
-        self.serverstatus = ''
+        self.serverstatus = False
         self.serverinfo = {}
         self.serverinfo_vars = {}
         self.serverplayers = {}
           
-    def getserver(self, serverip): 
-    
-        self.serverip = serverip
-    
+    def getserver(self): 
         try:
-                serverReq = requests.get(f"http://{self.serverip}/info.json")
+                serverReq = requests.get(f"http://{self.server_ip}/info.json")
         except:
-                self.serverstatus = 'OFF'
                 self.online_players = '0/0'
                 return f"[{datetime.now().strftime('%H:%M:%S')}] Incorrect IP or server is not responding."           
                     
         serverInfo = json.loads(serverReq.text)
         
-        playersReq = requests.get(f"http://{self.serverip}/players.json")
+        playersReq = requests.get(f"http://{self.server_ip}/players.json")
         serverPlayers = json.loads(playersReq.text)
                     
         self.serverinfo = serverInfo
         self.serverinfo_vars = serverInfo["vars"]
         self.serverplayers = serverPlayers
-        self.serverstatus = 'ON'
+        self.serverstatus = True
 
     #def stringToBase64(s):
     #    return base64.b64encode(s.encode('utf-8'))
