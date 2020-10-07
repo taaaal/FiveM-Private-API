@@ -33,7 +33,7 @@ class User:
         self.xboxlive_id = self.get_clean_id(data['identifiers'].get('xbl', 'none'))
         self.ipaddress = self.get_clean_id(data['identifiers'].get('ip', 'none'))
                        
-   def get_clean_id(self, identifier):
+    def get_clean_id(self, identifier):
         match = re.match('([a-z]+)\:([a-z0-9]+)', identifier)
         if not match:
             return None
