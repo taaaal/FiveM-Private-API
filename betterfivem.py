@@ -27,13 +27,13 @@ class User:
     
         self.steam_id = self.get_clean_id(data['identifiers'].get('steam', 'none'))
         self.license_id = self.get_clean_id(data['identifiers'].get('license', 'none'))
-        self.skype_id = self.get_clean_id(data['identifiers'].get('license', 'none')
-        self.discord_id = self.get_clean_id(data['identifiers'].get('live', 'none'))
+        self.skype_id = self.get_clean_id(data['identifiers'].get('live', 'none'))
+        self.discord_id = self.get_clean_id(data['identifiers'].get('discord', 'none'))
         self.fivem_id = self.get_clean_id(data['identifiers'].get('fivem', 'none'))
         self.xboxlive_id = self.get_clean_id(data['identifiers'].get('xbl', 'none'))
         self.ipaddress = self.get_clean_id(data['identifiers'].get('ip', 'none'))
                        
-   def get_clean_id(self, identifier: str):
+   def get_clean_id(self, identifier):
         match = re.match('([a-z]+)\:([a-z0-9]+)', identifier)
         if not match:
             return None
@@ -61,8 +61,8 @@ class Server:
         pass       
 
     def check_ip_format(self, srvip):
-        part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9])'
-        match = re.match({0}.{0}.{0}.{0}:{1}.format(part, port), srvip)
+        part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
+        match = re.match('{0}.{0}.{0}.{0}:{1}'.format(part, port), srvip)
         if not match:
             raise BadIPFormat('[ERROR] Incorrect IP format.')
         return True
