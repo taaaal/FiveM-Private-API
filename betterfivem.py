@@ -25,7 +25,7 @@ class User:
         self.name = data.get('name')
         self.ping = data.get('ping')
     
-        identifiers = ('steam', 'licenese', 'discord', 'fivem') #'live', #'xbl', 'ip')
+        identifiers = ('steam', 'licenese', 'discord', 'fivem') 
         sorted_identifiers = dict()
         for k in identifiers:
             for v in data['identifiers']:
