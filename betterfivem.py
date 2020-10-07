@@ -67,7 +67,7 @@ class Server:
             raise BadIPFormat('[ERROR] Incorrect IP format.')
         return True
 
-    async def get_players_data(self)
+    async def get_players_data(self):
         async with aiohttp.ClientSession().get('http://{}/players.json'.format(self.srvip)) as resp:
             if resp.status != 200:
                 raise ServerNotRespond('[ERROR] Server is not responding or not found.')
