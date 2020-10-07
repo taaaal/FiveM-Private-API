@@ -25,13 +25,20 @@ class User:
         self.name = data.get('name')
         self.ping = data.get('ping')
     
-        self.steam_id = self.get_clean_id(data['identifiers'].get('steam', 'none'))
-        self.license_id = self.get_clean_id(data['identifiers'].get('license', 'none'))
-        self.skype_id = self.get_clean_id(data['identifiers'].get('live', 'none'))
-        self.discord_id = self.get_clean_id(data['identifiers'].get('discord', 'none'))
-        self.fivem_id = self.get_clean_id(data['identifiers'].get('fivem', 'none'))
-        self.xboxlive_id = self.get_clean_id(data['identifiers'].get('xbl', 'none'))
-        self.ipaddress = self.get_clean_id(data['identifiers'].get('ip', 'none'))
+        identifiers = ('steam', 'licenese', 'discord', 'fivem') #'live', #'xbl', 'ip')
+        sorted_identifiers = dict()
+        for k in identifiers:
+            for v in data['identifiers']:
+                if v.startswith(k):
+                    clean_v = self.get_clean_id(v)
+                    clean_k = k + '_id'
+                    sorted_identifiers[clean_k] = clean_v
+                    continue
+            
+        self.steam_id = sorted_identifiers.get('steam_id')
+        self.license_id = sorted_identifiers.get('license_id')
+        self.discord_id = sorted_identifiers.get('discord_id')
+        self.fivem_id = sorted_identifiers.get('fivem_id')
                        
     def get_clean_id(self, identifier):
         match = re.match('([a-z]+)\:([a-z0-9]+)', identifier)
@@ -58,9 +65,8 @@ class Server:
     def __str__(self):
         return 'FiveM Server'
 
-    #def __repr__(self):
-    #    return '<{str(0)} server_ip={0.srvip} status={0.status}' \
-    #        ' online_players={online}/{max}'.format(self, **self.online_players)
+    def __repr__(self):
+        return '<{__str__} server_ip={srvip} status={status}'.format(**self)
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
@@ -74,13 +80,12 @@ class Server:
             async with session.get('http://{}/players.json'.format(self.srvip)) as resp:
                 if resp.status != 200:
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
+                self.status = True 
                 return await resp.read() 
 
         async with aiohttp.ClientSession(loop=loop) as session:
             data = await fetch(session)    
-            self._data = json.loads(data)
-            print(self._data)
-            self.status = True           
+            self._data = json.loads(data)         
 
     def _players(self):
         for player in self._data:
@@ -88,7 +93,7 @@ class Server:
 
     @property
     def online_players(self):
-        return {'online': len(set(self._players())), 'max': self.max_slots}
+        return (len(set(self._players())), self.max_slots)
 
    #@property
    #def scripts(self):
