@@ -61,8 +61,8 @@ class Server:
         self.max_slots = max_slots 
 
     def __repr__(self):
-        return '<FiveM Server server_ip={0.srvip} status={0.status}' \
-               ' online_players={1[0]}/{1[1]}>'.format(self, self.online_players)
+        return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
+               ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
 
 
     def check_ip_format(self, srvip):
