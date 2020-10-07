@@ -70,7 +70,7 @@ class Server:
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
-        match = re.match('{0}.{0}.{0}.{0}:{1}'.format(part, port), srvip)
+        match = re.match('{0}.{0}.{0}.{0}:{1}'.format(part, port), srvip) or srv.ip.startwith(('fivem', 'www')) or srv.ip.endswith(('co', 'com', 'net'))
         if not match:
             raise BadIPFormat('[ERROR] Incorrect IP format.')
         return True
