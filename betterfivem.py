@@ -60,10 +60,10 @@ class Server:
         loop.run_until_complete(self.get_players_data(loop))
         
         self.max_slots = max_slots 
-        self.status = False
+        self.status = None
 
     def __repr__(self):
-        return '<FiveM Server server_ip={0.srvip} status={0.status}'.format(self)
+        return '<FiveM Server server_ip={0.srvip} status={0.status}>'.format(self)
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
@@ -76,9 +76,11 @@ class Server:
         async def fetch(session):
             async with session.get('http://{}/players.json'.format(self.srvip)) as resp:
                 if resp.status != 200:
+                    self.status = False
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
-                self.status = True 
-                return await resp.read() 
+                else:
+                    self.status = True
+                    return await resp.read() 
 
         async with aiohttp.ClientSession(loop=loop) as session:
             data = await fetch(session)    
