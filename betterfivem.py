@@ -60,7 +60,7 @@ class Server:
         '''
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
         loop = loop
-        loop.run_until_complete(self.get_players_data(loop))
+        loop.create_task(self.get_players_data(loop))
         self.max_slots = max_slots 
 
     def __repr__(self):
