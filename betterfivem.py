@@ -49,13 +49,14 @@ class Server:
          
     def __init__(self, srvip, max_slots = 32):
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
-        asyncio.get_event_loop().create_task(self.get_players_data())
-
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.get_players_data(loop))
+        
         self.max_slots = max_slots 
         self.status = False
 
     def __str__(self):
-        return 'FiveMServer'
+        return 'FiveM Server'
 
     #def __repr__(self):
     #    return '<{str(0)} server_ip={0.srvip} status={0.status}' \
@@ -68,16 +69,18 @@ class Server:
             raise BadIPFormat('[ERROR] Incorrect IP format.')
         return True
 
-    async def get_players_data(self):
-        async with aiohttp.ClientSession() as session:
-            async with session.get('http://{}/players.json'.format(self.srvip)) as resp:
+    async def get_players_data(self, loop):
+        async def fetch(session):
+            async with client.get('http://{}/players.json'.format(self.srvip)) as resp:
                 if resp.status != 200:
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
+                return await resp.read() 
 
-                data = await resp.read()         
-                self._data = json.loads(data)
-                print(self._data)
-                self.status = True           
+        async with aiohttp.ClientSession(loop=loop) as session:
+            data = await fetch(session)    
+            self._data = json.loads(data)
+            print(self._data)
+            self.status = True           
 
     def _players(self):
         for player in self._data:
