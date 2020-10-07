@@ -52,14 +52,14 @@ class User:
                                   
 class Server:
          
-    def __init__(self, srvip, max_slots = 32):
+    def __init__(self, srvip, loop, max_slots = 32):
         '''
         Server represented by FiveM Server Service
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
-        loop = asyncio.get_event_loop()
+        loop = loop
         loop.run_until_complete(self.get_players_data(loop))
         self.max_slots = max_slots 
 
