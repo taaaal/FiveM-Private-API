@@ -61,7 +61,9 @@ class Server:
         self.max_slots = max_slots 
 
     def __repr__(self):
-        return '<FiveM Server server_ip={0.srvip} status={0.status}>'.format(self)
+        return '<FiveM Server server_ip={0.srvip} status={0.status}' \
+               ' online_players={1[0]}/{1[1]}>'.format(self, self.online_players)
+
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
@@ -83,7 +85,7 @@ class Server:
             data = await fetch(session)    
             self._data = json.loads(data)         
 
-    def _players(self):
+    def players(self):
         for player in self._data:
             yield User(player)
 
