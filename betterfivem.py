@@ -58,9 +58,7 @@ class Server:
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.get_players_data(loop))
-        
         self.max_slots = max_slots 
-        self.status = None
 
     def __repr__(self):
         return '<FiveM Server server_ip={0.srvip} status={0.status}>'.format(self)
@@ -78,9 +76,8 @@ class Server:
                 if resp.status != 200:
                     self.status = False
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
-                else:
-                    self.status = True
-                    return await resp.read() 
+                self.status = True
+                return await resp.read() 
 
         async with aiohttp.ClientSession(loop=loop) as session:
             data = await fetch(session)    
