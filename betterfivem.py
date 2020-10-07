@@ -26,7 +26,7 @@ class User:
         self.ping = data.get('ping')
     
         self.steam_id = self.get_clean_id(data['identifiers'].get('steam', 'none'))
-        self.license_id = self.get_clean_id(data['identifiers'].get('license', 'none')
+        self.license_id = self.get_clean_id(data['identifiers'].get('license', 'none'))
         self.skype_id = self.get_clean_id(data['identifiers'].get('license', 'none')
         self.discord_id = self.get_clean_id(data['identifiers'].get('live', 'none'))
         self.fivem_id = self.get_clean_id(data['identifiers'].get('fivem', 'none'))
