@@ -47,17 +47,17 @@ Server represented FiveM Server Wrapper
                                           
 class Server:
          
-     def __init__(self, srvip, max_slots = 32):
+    def __init__(self, srvip, max_slots = 32):
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
         asyncio.get_event_loop().run_until_complete(self.get_players_data())
 
         self.max_slots = max_slots 
         self.status = False
 
-   def __str__(self):
+    def __str__(self):
         pass
 
-   def __repr__(self):
+    def __repr__(self):
         pass       
 
     def check_ip_format(self, srvip):
@@ -70,19 +70,19 @@ class Server:
     async def get_players_data(self)
         async with aiohttp.ClientSession().get('http://{}/players.json'.format(self.srvip)) as resp:
             if resp.status != 200:
-               raise ServerNotRespond('[ERROR] Server is not responding or not found.')
+                raise ServerNotRespond('[ERROR] Server is not responding or not found.')
 
             data = await resp.read()         
             self._data = json.loads(data)
             self.status = True           
 
-   def _players(self):
+    def _players(self):
         for player in self._data:
             yield User(player)
 
-   @property
-   def online_players(self):
-       return {'online': len(set(self._players())), 'max': self.max_slots}
+    @property
+    def online_players(self):
+        return {'online': len(set(self._players())), 'max': self.max_slots}
 
    #@property
    #def scripts(self):
