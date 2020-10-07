@@ -69,13 +69,15 @@ class Server:
         return True
 
     async def get_players_data(self):
-        async with aiohttp.ClientSession().get('http://{}/players.json'.format(self.srvip)) as resp:
-            if resp.status != 200:
-                raise ServerNotRespond('[ERROR] Server is not responding or not found.')
+        async with aiohttp.ClientSession() as session:
+            async with session.get('http://{}/players.json'.format(self.srvip)) as resp:
+                if resp.status != 200:
+                    raise ServerNotRespond('[ERROR] Server is not responding or not found.')
 
-            data = await resp.read()         
-            self._data = json.loads(data)
-            self.status = True           
+                data = await resp.read()         
+                self._data = json.loads(data)
+                print(self._data)
+                self.status = True           
 
     def _players(self):
         for player in self._data:
