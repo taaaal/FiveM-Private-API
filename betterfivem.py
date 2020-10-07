@@ -62,11 +62,8 @@ class Server:
         self.max_slots = max_slots 
         self.status = False
 
-    def __str__(self):
-        return 'FiveM Server'
-
     def __repr__(self):
-        return '<{0.__str__} server_ip={0.srvip} status={0.status}'.format(self)
+        return '<FiveM Server server_ip={0.srvip} status={0.status}'.format(self)
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
