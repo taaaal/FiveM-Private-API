@@ -3,24 +3,25 @@ import json
 import aiohttp
 import re
 
-'''
-Custom Exceptions
-'''
-
 class BadIPFormat(Exception):
+    '''
+    Invalid IP format Exception
+    '''
     pass
 
 class ServerNotRespond(Exception):
+    '''
+    Server not respond or not found Exception
+    '''
     pass
-
-'''
-User represented FiveM player
-    `data` -> dict | User's data as a dict
-'''
 
 class User:
     
     def __init__(self, data):
+        '''
+        User represented by FiveM player
+        `data` -> dict | User's data as a dict
+        '''
         self.id = data.get('id')
         self.name = data.get('name')
         self.ping = data.get('ping')
@@ -33,7 +34,7 @@ class User:
         self.discord_id = self.sorted_identifiers.get('discord_id')
         self.fivem_id = self.sorted_identifiers.get('fivem_id')
     
-   def sort_identifiers(self, based_identifiers, data_identifiers):
+    def sort_identifiers(self, based_identifiers, data_identifiers):
         self.sorted_identifiers = dict()
         for k in based_identifiers:
             for v in data_identifiers:
@@ -48,16 +49,15 @@ class User:
         if not match:
             return None
         return match.groups()[1]
-
-'''
-Server represented FiveM Server Wrapper
-    `srvip` -> str       |   Server's IP
-    `max_slots` -> int   |   Server's max players
-'''
-                                          
+                                  
 class Server:
          
     def __init__(self, srvip, max_slots = 32):
+        '''
+        Server represented by FiveM Server Service
+        `srvip` -> str       |   Server's IP
+        `max_slots` -> int   |   Server's max players
+        '''
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.get_players_data(loop))
