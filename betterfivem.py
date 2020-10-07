@@ -66,7 +66,7 @@ class Server:
         return 'FiveM Server'
 
     def __repr__(self):
-        return '<{__str__} server_ip={srvip} status={status}'.format(**self)
+        return '<{str(0)} server_ip={0.srvip} status={0.status}'.format(self)
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
