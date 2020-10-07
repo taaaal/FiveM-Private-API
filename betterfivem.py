@@ -57,9 +57,9 @@ class Server:
     def __str__(self):
         return 'FiveMServer'
 
-    def __repr__(self):
-        return '<{str(0)} server_ip={0.srvip} status={0.status}' \
-            ' online_players={online}/{max}'.format(self, **self.online_players)
+    #def __repr__(self):
+    #    return '<{str(0)} server_ip={0.srvip} status={0.status}' \
+    #        ' online_players={online}/{max}'.format(self, **self.online_players)
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
