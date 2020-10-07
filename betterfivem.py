@@ -49,16 +49,17 @@ class Server:
          
     def __init__(self, srvip, max_slots = 32):
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
-        asyncio.get_event_loop().run_until_complete(self.get_players_data())
+        asyncio.get_event_loop().create_task(self.get_players_data())
 
         self.max_slots = max_slots 
         self.status = False
 
     def __str__(self):
-        pass
+        return 'FiveMServer'
 
     def __repr__(self):
-        pass       
+        return '<{str(0)} server_ip={0.srvip} status={0.status}' \
+            ' online_players={online}/{max}'.format(self, **self.online_players)
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
