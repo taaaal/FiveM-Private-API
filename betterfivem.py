@@ -52,15 +52,13 @@ class User:
                                   
 class Server:
          
-    def __init__(self, srvip, loop, max_slots = 32):
+    def __init__(self, srvip, max_slots = 32):
         '''
         Server represented by FiveM Server Service
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
         self.srvip = srvip if self.check_ip_format(srvip) is True else None
-        loop = loop
-        loop.create_task(self.get_players_data(loop))
         self.max_slots = max_slots 
 
     def __repr__(self):
@@ -75,7 +73,7 @@ class Server:
             raise BadIPFormat('[ERROR] Incorrect IP format.')
         return True
 
-    async def get_players_data(self, loop):
+    async def get_players_data(self):
         async def fetch(session):
             async with session.get('http://{}/players.json'.format(self.srvip)) as resp:
                 if resp.status != 200:
@@ -84,7 +82,7 @@ class Server:
                 self.status = True
                 return await resp.read() 
 
-        async with aiohttp.ClientSession(loop=loop) as session:
+        async with aiohttp.ClientSession() as session:
             data = await fetch(session)    
             self._data = json.loads(data)         
 
