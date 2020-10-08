@@ -86,6 +86,7 @@ class Server:
             data = await fetch(session)    
             self._data = json.loads(data)         
 
+    @property
     def players(self):
         for player in self._data:
             yield User(player)
