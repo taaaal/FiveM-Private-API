@@ -48,7 +48,7 @@ class Server:
 
     @property
     def online_players(self):
-        return (len(set(self.players())), self.max_slots)
+        return (len(set(self.players)), self.max_slots)
 
    #@property
    #def scripts(self):
