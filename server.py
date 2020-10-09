@@ -2,12 +2,15 @@ import asyncio
 import json
 import aiohttp
 import re
+
+from fivem.user import User
+from fivem.errors import BadIPFormat, ServerNotRespond
                            
 class Server:
          
-    def __init__(self, srvip, max_slots = 32):
+    def __init__(self, srvip: str, max_slots: int = 32):
         '''
-        Server represented by FiveM Server Service
+        Server represents by FiveM Server Service
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
@@ -17,7 +20,6 @@ class Server:
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
-
 
     def check_ip_format(self, srvip):
         part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
