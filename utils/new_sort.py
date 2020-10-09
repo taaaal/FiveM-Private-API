@@ -11,13 +11,12 @@ class CustomUsersSort:
         return new_users
 
     def get_key(self, key):
-        if key == 'by_name':
-            key = self.by_name 
-        elif key == 'by_id':
-            key = self.by_id 
-        elif key == 'by_ping':
-            key = self.by_ping 
-        return key
+        keys = {
+            'by_name': self.by_name,
+            'by_id': self.by_id,
+            'by_ping: self.by_ping
+        }
+        return keys.get(key)
 
     def by_name(self, user):
         leading_n = str()
