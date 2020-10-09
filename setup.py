@@ -6,7 +6,7 @@ setuptools.setup(
 
      py_modules=["betterfivem"],
      
-     version='0.3'
+     version='0.3',
 
      author='Tal Klaiderman',
 
