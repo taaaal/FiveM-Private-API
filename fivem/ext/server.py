@@ -4,7 +4,7 @@ import aiohttp
 import re
 
 from fivem.ext.user import User
-from fivem.ext.errors import BadIPFormat, ServerNotRespond
+from fivem.errors import BadIPFormat, ServerNotRespond
                            
 class Server:
          
