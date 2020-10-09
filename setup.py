@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
 
-     name='fivem',
+     name='fivem.py',
 
      packages=['fivem', 'utils'],
      
