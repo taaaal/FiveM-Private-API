@@ -2,19 +2,7 @@ import asyncio
 import json
 import aiohttp
 import re
-
-class BadIPFormat(Exception):
-    '''
-    Invalid IP format Exception
-    '''
-    pass
-
-class ServerNotRespond(Exception):
-    '''
-    Server not respond or not found Exception
-    '''
-    pass
-                                  
+                           
 class Server:
          
     def __init__(self, srvip, max_slots = 32):
