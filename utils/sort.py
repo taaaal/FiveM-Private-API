@@ -14,7 +14,7 @@ class CustomUsersSort:
         keys = {
             'by_name': self.by_name,
             'by_id': self.by_id,
-            'by_ping: self.by_ping
+            'by_ping': self.by_ping
         }
         return keys.get(key)
 
