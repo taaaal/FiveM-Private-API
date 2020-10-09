@@ -4,7 +4,7 @@ setuptools.setup(
 
      name='fivem.py',
 
-     packages=['fivem'],
+     packages=['fivem', 'fivem.ext.server', 'fivem.ext.user'],
      
      version='0.3',
 
