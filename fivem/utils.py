@@ -1,6 +1,6 @@
 class CustomUsersSort:
 
-    def init(self, users: list, key: str, reverse: bool = False):
+    def __init__(self, users: list, key: str, reverse: bool = False):
         self._users = users
         self.key = self.get_key(key)
         self.reverse = reverse
