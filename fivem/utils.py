@@ -1,3 +1,6 @@
+
+import string
+
 class CustomUsersSort:
 
     def __init__(self, users: list, key: str, reverse: bool = False):
