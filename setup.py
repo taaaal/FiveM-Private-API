@@ -2,23 +2,23 @@ import setuptools
 
 setuptools.setup(
 
-     name='betterfivem',  
+     name='fivem',
 
      py_modules=["betterfivem"],
      
-     version='0.1',
+     version='0.3'
 
-     author="Tal Klaiderman",
+     author='Tal Klaiderman',
 
-     description="A Python wrapper for the FIVEM API.",
+     description='A Python wrapper for the FiveM API',
 
      classifiers=[
 
-         "Programming Language :: Python :: 3",
+         'Programming Language :: Python :: 3.8'
 
-         "License :: OSI Approved :: MIT License",
+         'License :: OSI Approved :: MIT License',
 
-         "Operating System :: OS Independent",
+         'Operating System :: OS Independent',
 
      ],
 
