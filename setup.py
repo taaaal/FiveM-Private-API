@@ -4,7 +4,7 @@ setuptools.setup(
 
      name='fivem',
 
-     py_modules=['server'],
+     packages=['fivem', 'utils'],
      
      version='0.3',
 
