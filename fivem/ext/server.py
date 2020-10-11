@@ -50,9 +50,9 @@ class Server:
     def check_server(self, srvip):
          try:
              srvip = ServerIP().convert(srvip)
-         excpet:
+        excpet:
              return False
-         else:
+        else:
              return True
 
     async def get_players_data(self):
