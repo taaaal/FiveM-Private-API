@@ -13,7 +13,7 @@ class ServerIP:
             else:
                 try:
                     ip_list = ip.split('.')      
-                excpet ValueError:
+                except ValueError:
                     ip_status = False
                 else:
                     ip_status = True
@@ -25,7 +25,7 @@ class ServerIP:
                 
         try:
             ip, port = self.argument.split(':')
-        excpet ValueError:
+        except ValueError:
             port = self.default_port
         if check_ip_format(ip, port) is True:
             srvip = '{0}:{1}'.format(ip, port)
