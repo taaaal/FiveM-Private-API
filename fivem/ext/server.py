@@ -48,9 +48,9 @@ class Server:
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
 
     def check_server(self, srvip):
-         try:
+        try:
              srvip = ServerIP().convert(srvip)
-        excpet:
+        except:
              return False
         else:
              return True
