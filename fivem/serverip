@@ -1,0 +1,30 @@
+from fivem.errors import BadIPFormat
+
+class ServerIP:
+  
+    def __init__(self, argument):
+        self.argument = argument
+        self.error = BadIPFormat('[ERROR] Incorrect IP format.')
+        self.convert(self.argument)
+  
+    def convert(self):
+        if self.argument.startswith(('fivem', 'www')):
+            try:
+                srvip = socket.gethostbyname(argument)
+                return srvip
+            except:
+                raise self.error
+        try:
+            ip, port = self.argument.split(':')
+        excpet ValueError:
+            port = 30120
+        try:
+            ip_list = ip.split('.'):
+        excpet ValueError:
+            raise self.error
+        else:
+            if len(ip_list) == 4 and len(port) in (4, 5):
+                srvip = '{0}:{1}'.format(ip, port)
+                return srvip
+            else:
+                raise self.error
