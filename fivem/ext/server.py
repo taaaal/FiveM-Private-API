@@ -32,7 +32,7 @@ class FakeServer:
 
 class Server:
          
-    __slots__ = ('srvip', 'max_slots', 'status')
+    __slots__ = ('srvip', 'max_slots', 'status', 'players_data', 'info_data')
 
     def __init__(self, srvip: str, max_slots: int = 32):
         '''
