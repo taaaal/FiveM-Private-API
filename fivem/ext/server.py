@@ -2,7 +2,6 @@ import asyncio
 import json
 import aiohttp
 import re
-import socket
 
 from fivem.ext.user import User
 from fivem.errors import BadIPFormat, ServerNotRespond
