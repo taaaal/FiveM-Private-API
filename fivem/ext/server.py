@@ -30,30 +30,19 @@ class Server:
          
     __slots__ = ('srvip', 'max_slots')
 
-    def __new__(self, srvip: str, max_slots: int = 32):
+    def __self__(self, srvip: str, max_slots: int = 32):
         '''
         Server represents by FiveM Server Service
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
-        if self.check_server(srvip) is False:
-             return FakeServer(srvip)
-        else:
-             self.srvip = srvip
+        self.srvip = ServerIP().convert(srvip)
         self.max_slots = max_slots 
         self.status = False
 
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
-
-    def check_server(self, srvip):
-        try:
-             srvip = ServerIP().convert(srvip)
-        except:
-             return False
-        else:
-             return True
 
     async def get_players_data(self):
         async def fetch(session, mode):
