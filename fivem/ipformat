@@ -7,24 +7,28 @@ class ServerIP:
         self.default_port = 30120
   
     def convert(self, argument):
-        if argument.startswith(('fivem', 'www')):
-            try:
-                ip, port = socket.gethostbyname(argument), self.default_port
-                srvip = '{0}:{1}'.format(ip, port)
-                return srvip
-            except:
-                raise self.error
+        def check_ip_format(ip, port):
+            if ip.startswith(('fivem', 'www')):
+                ip_status = True
+            else:
+                try:
+                    ip_list = ip.split('.')      
+                excpet ValueError:
+                    ip_status = False
+                else:
+                    ip_status = True
+            port_status = len(port) in (4, 5)
+            if ip_status and port_status:
+                return True
+            else:
+                return False
+                
         try:
             ip, port = self.argument.split(':')
         excpet ValueError:
             port = self.default_port
-        try:
-            ip_list = ip.split('.'):
-        excpet ValueError:
-            raise self.error
+        if check_ip_format(ip, port) is True:
+            srvip = '{0}:{1}'.format(ip, port)
+            return srvip
         else:
-            if len(ip_list) == 4 and len(port) in (4, 5):
-                srvip = '{0}:{1}'.format(ip, port)
-                return srvip
-            else:
-                raise self.error
+            raise self.error
