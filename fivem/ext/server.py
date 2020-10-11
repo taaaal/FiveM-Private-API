@@ -57,7 +57,7 @@ class Server:
 
     async def get_players_data(self):
         async def fetch(session, mode):
-            base_url = 'http://{}/{}.json'.format(self.srvip, mode}
+            base_url = 'http://{}/{}.json'.format(self.srvip, mode)
             async with session.get(base_url) as resp:
                 if resp.status != 200:
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
