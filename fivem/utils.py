@@ -3,12 +3,15 @@ import string
 class CustomUsersSort:
 
     def __new__(self, users: list, key: str, reverse: bool = False):
-        self.users = users
+        self._users = users
         self.key = self.get_key(key)
         self.reverse = reverse
-        new_sort = sorted(self.users, key=self.key, reverse=self.reverse)
-        return new_sort
 
+    @property    
+    def users(self):
+        new_sort = sorted(self._users, key=self.key, reverse=self.reverse)
+        return new_sort
+     
     def get_key(self, key):
         keys = {
             'by_name': self.by_name,
