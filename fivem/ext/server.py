@@ -43,6 +43,8 @@ class Server:
         self.srvip = ServerIP().convert(srvip)
         self.max_slots = max_slots 
         self.status = False
+        self.players_data = []
+        self.info_data = []
 
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
