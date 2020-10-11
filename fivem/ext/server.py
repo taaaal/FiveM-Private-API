@@ -32,7 +32,7 @@ class FakeServer:
 
 class Server:
          
-    __slots__ = ('srvip', 'max_slots', 'status')
+    __slots__ = ('srvip', 'max_slots', 'status', 'players_data', 'info_data')
 
     def __init__(self, srvip: str, max_slots: int = 32):
         '''
@@ -43,6 +43,8 @@ class Server:
         self.srvip = ServerIP().convert(srvip)
         self.max_slots = max_slots 
         self.status = False
+        self.players_data = []
+        self.info_data = []
 
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
