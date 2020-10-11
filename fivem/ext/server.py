@@ -9,6 +9,8 @@ from fivem.ipformat import ServerIP
 
 class Server:
          
+    __slots__ = ('srvip', 'max_slots')
+
     def __init__(self, srvip: str, max_slots: int = 32):
         '''
         Server represents by FiveM Server Service
@@ -17,27 +19,39 @@ class Server:
         '''
         self.srvip = ServerIP().convert(srvip)
         self.max_slots = max_slots 
+        self.status = False
+        self.
 
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
 
     async def get_players_data(self):
-        async def fetch(session):
-            async with session.get('http://{}/players.json'.format(self.srvip)) as resp:
+        async def fetch(session, mode):
+            base_url = 'http://{}/{}.json'.format(self.srvip, mode}
+            async with session.get(base_url) as resp:
                 if resp.status != 200:
-                    self.status = False
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
                 self.status = True
                 return await resp.read() 
 
         async with aiohttp.ClientSession() as session:
-            data = await fetch(session)    
-            self._data = json.loads(data)         
-
+            modes = ('players', 'info')                  
+            for mode in modes:
+                  fetched_data = await fetch(session, mode)
+                  data = json.loads(fetched_data)
+                  if mode == modes[0]: 
+                       self.players_data = data   
+                  elif mode == modes[1]
+                       self.info_data = data   
+  
+    @property
+    def queue(self):
+         pass
+                                              
     @property
     def players(self):
-        for player in self._data:
+        for player in self.players_data:
             yield User(player)
 
     @property
