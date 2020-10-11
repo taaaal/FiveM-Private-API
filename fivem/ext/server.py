@@ -6,7 +6,7 @@ import socket
 
 from fivem.ext.user import User
 from fivem.errors import BadIPFormat, ServerNotRespond
-from fivem.serverip import ServerIP
+from fivem.ipformat import ServerIP
 
 class Server:
          
@@ -16,20 +16,12 @@ class Server:
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
-        self.srvip = ServerIP.convert(srvip)
+        self.srvip = ServerIP().convert(srvip)
         self.max_slots = max_slots 
 
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
-
-    def check_ip_format(self, srvip):
-        if 
-        part, port = r'([0-9][0-9][0-9])', r'([0-9][0-9][0-9][0-9][0-9]?)'
-        match = re.match('{0}.{0}.{0}.{0}:{1}'.format(part, port), srvip) or srvip.startswith(('fivem', 'www')) or srvip.endswith(('co', 'com', 'net'))
-        if not match:
-            raise BadIPFormat('[ERROR] Incorrect IP format.')
-        return True
 
     async def get_players_data(self):
         async def fetch(session):
