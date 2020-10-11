@@ -32,15 +32,16 @@ class FakeServer:
 
 class Server:
          
-    __slots__ = ('srvip', 'max_slots', 'status', 'players_data', 'info_data')
+    __slots__ = ('ctx', 'srvip', 'max_slots', 'status', 'players_data', 'info_data')
 
-    def __init__(self, srvip: str, max_slots: int = 32):
+    def __init__(self, ctx, srvip: str, max_slots: int = 32):
         '''
         Server represents by FiveM Server Service
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
         self.srvip = ServerIP().convert(srvip)
+        ctx.bot.loop.create_task(self.get_players_data())
         self.max_slots = max_slots 
         self.status = False
         self.players_data = []
