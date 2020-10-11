@@ -7,7 +7,7 @@ from fivem.ext.user import User
 from fivem.errors import BadIPFormat, ServerNotRespond
 from fivem.ipformat import ServerIP
 
-class OfflineServer:
+class FakeServer:
     __slots__ = ('srvip')
 
     def __init__(self, srvip):
@@ -37,7 +37,7 @@ class Server:
         `max_slots` -> int   |   Server's max players
         '''
         if self.check_server(srvip) is False:
-             return OfflineServer(srvip)
+             return FakeServer(srvip)
         else:
              self.srvip = srvip
         self.max_slots = max_slots 
