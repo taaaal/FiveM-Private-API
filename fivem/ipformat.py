@@ -24,7 +24,7 @@ class ServerIP:
                 return False
                 
         try:
-            ip, port = self.argument.split(':')
+            ip, port = argument.split(':')
         except ValueError:
             port = self.default_port
         if check_ip_format(ip, port) is True:
