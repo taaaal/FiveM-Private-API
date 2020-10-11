@@ -28,9 +28,9 @@ class FakeServer:
 
 class Server:
          
-    __slots__ = ('srvip', 'max_slots')
+    __slots__ = ('srvip', 'max_slots', 'statu's)
 
-    def __self__(self, srvip: str, max_slots: int = 32):
+    def __init__(self, srvip: str, max_slots: int = 32):
         '''
         Server represents by FiveM Server Service
         `srvip` -> str       |   Server's IP
