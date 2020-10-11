@@ -14,6 +14,10 @@ class FakeServer:
         self.srvip = srvip
         self.status = False
 
+    def __repr__(self):
+        return '<BetterFiveM-Service | <FakeServer ip={0.srvip} status={0.status}' \
+               ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)  
+        
     @property
     def queue(self):
          return []
