@@ -8,7 +8,7 @@ from fivem.errors import BadIPFormat, ServerNotRespond
 from fivem.ipformat import ServerIP
 
 class FakeServer:
-    __slots__ = ('srvip')
+    __slots__ = ('srvip', 'status')
 
     def __init__(self, srvip):
         self.srvip = srvip
