@@ -71,7 +71,7 @@ class Server:
                   data = json.loads(fetched_data)
                   if mode == modes[0]: 
                        self.players_data = data   
-                  elif mode == modes[1]
+                  elif mode == modes[1]:
                        self.info_data = data   
   
     @property
