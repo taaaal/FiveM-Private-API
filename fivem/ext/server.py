@@ -7,24 +7,53 @@ from fivem.ext.user import User
 from fivem.errors import BadIPFormat, ServerNotRespond
 from fivem.ipformat import ServerIP
 
+class OfflineServer:
+    __slots__ = ('srvip')
+
+    def __init__(self, srvip):
+        self.srvip = srvip
+        self.status = False
+
+    @property
+    def queue(self):
+         return []
+
+    @property
+    def players(self):
+         return []
+
+    @property
+    def online_players(self):
+         return (0, 0)
+
 class Server:
          
     __slots__ = ('srvip', 'max_slots')
 
-    def __init__(self, srvip: str, max_slots: int = 32):
+    def __new__(self, srvip: str, max_slots: int = 32):
         '''
         Server represents by FiveM Server Service
         `srvip` -> str       |   Server's IP
         `max_slots` -> int   |   Server's max players
         '''
-        self.srvip = ServerIP().convert(srvip)
+        if self.check_server(srvip) is False:
+             return OfflineServer(srvip)
+        else:
+             self.srvip = srvip
         self.max_slots = max_slots 
         self.status = False
-        self.
 
     def __repr__(self):
         return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
+
+    def check_server(self, srvip):
+         try:
+             srvip = ServerIP().convert(srvip)
+         excpet:
+             return False
+         else:
+             return True
 
     async def get_players_data(self):
         async def fetch(session, mode):
