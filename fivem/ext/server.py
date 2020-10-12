@@ -15,12 +15,12 @@ class FakeServer:
         self.status = False
 
     def __repr__(self):
-        return '<BetterFiveM-Service | <FakeServer ip={0.srvip} status={0.status}' \
+        return '<BetterFiveM-Service | <{0.__class__.__name__} ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)  
         
     @property
     def queue(self):
-         return []
+         return 0
 
     @property
     def players(self):
@@ -32,7 +32,7 @@ class FakeServer:
 
 class Server:
          
-    __slots__ = ('srvip', 'max_slots', 'status', 'players_data', 'info_data')
+    __slots__ = ('srvip', 'max_slots', 'status')
 
     def __init__(self, srvip: str, max_slots: int = 32):
         '''
@@ -43,11 +43,9 @@ class Server:
         self.srvip = ServerIP().convert(srvip)
         self.max_slots = max_slots 
         self.status = False
-        self.players_data = []
-        self.info_data = []
 
     def __repr__(self):
-        return '<BetterFiveM-Service | <Server ip={0.srvip} status={0.status}' \
+        return '<BetterFiveM-Service | <{0.__class__.__name__} ip={0.srvip} status={0.status}' \
                ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
 
     async def get_players_data(self):
