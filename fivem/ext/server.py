@@ -4,53 +4,45 @@ import aiohttp
 import re
 
 from fivem.ext.user import User
+from fivem.ext.fakeserver import FakeServer
 from fivem.errors import BadIPFormat, ServerNotRespond
 from fivem.ipformat import ServerIP
 
-class FakeServer:
-    __slots__ = ('srvip', 'status')
-
-    def __init__(self, srvip):
-        self.srvip = srvip
-        self.status = False
-
-    def __repr__(self):
-        return '<BetterFiveM-Service | <{0.__class__.__name__} ip={0.srvip} status={0.status}' \
-               ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)  
-        
-    @property
-    def queue(self):
-         return 0
-
-    @property
-    def players(self):
-         return []
-
-    @property
-    def online_players(self):
-         return (0, 0)
-
 class Server:
+    
+    """
+    Represent Online FiveM Server
+    """
          
-    __slots__ = ('srvip', 'max_slots', 'status')
+    __slots__ = ('_ip', '_max_players', '_status')
 
-    def __init__(self, srvip: str, max_slots: int = 32):
-        '''
-        Server represents by FiveM Server Service
-        `srvip` -> str       |   Server's IP
-        `max_slots` -> int   |   Server's max players
-        '''
-        self.srvip = ServerIP().convert(srvip)
-        self.max_slots = max_slots 
-        self.status = False
-
+    def __new__(cls, ip, max_players=32):
+        
+        result = self.check_server_ip(ip) 
+        if result is False:
+            return FakeServer(ip)
+            
+        self = object.__new__(cls)
+        self._ip = ip
+        self._max_players = max_players 
+        self._status = False
+        return self
+        
     def __repr__(self):
-        return '<BetterFiveM-Service | <{0.__class__.__name__} ip={0.srvip} status={0.status}' \
-               ' online={1[0]}/{1[1]}>>'.format(self, self.online_players)
+        return '<{0.__class__.__name__} ip={0.ip} status={0.status}' \
+               ' online={1.online}/{1.max}>>'.format(self, self.sum_players)
 
+    def check_server_ip(self, ip):
+        try:
+            ServerIP().convert(ip)
+        except BadIPFormat:
+            return False
+        else:
+            return True
+            
     async def get_players_data(self):
         async def fetch(session, mode):
-            base_url = 'http://{}/{}.json'.format(self.srvip, mode)
+            base_url = 'http://{}/{}.json'.format(self.ip, mode)
             async with session.get(base_url) as resp:
                 if resp.status != 200:
                     raise ServerNotRespond('[ERROR] Server is not responding or not found.')
@@ -68,8 +60,16 @@ class Server:
                        self.info_data = data   
   
     @property
-    def queue(self):
-         pass
+    def ip(self):
+         return self._ip
+        
+    @property
+    def status(self):
+         retrun self._status
+
+    @property
+    def max_players(self):
+         return self._max_players
                                               
     @property
     def players(self):
@@ -77,9 +77,14 @@ class Server:
             yield User(player)
 
     @property
-    def online_players(self):
-        return (len(set(self.players)), self.max_slots)
-
+    def sum_players(self):
+        _online = len(set(self.players))
+        _max = self.max_players
+        class OnlinePlayers:
+            online = _online
+            max = _max
+        return OnlinePlayers
+    
    #@property
    #def scripts(self):
    #       return self.serverinfo.get("resources", "This server has no scripts.")
