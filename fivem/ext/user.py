@@ -2,9 +2,9 @@ import re
 
 class User:
     
-    '''
+    """
     Represents FiveM User
-    '''
+    """
     
     def __init__(self, data):
         self.id   = data.get('id')
