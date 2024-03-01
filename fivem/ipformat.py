@@ -27,8 +27,7 @@ class ServerIP:
             ip, port = argument.split(':')
         except ValueError:
             port = self.default_port
-        if check_ip_format(ip, port) is True:
-            srvip = '{0}:{1}'.format(ip, port)
-            return srvip
-        else:
+        if not check_ip_format(ip, port):
             raise self.error
+        srvip = '{0}:{1}'.format(ip, port)
+        return srvip
