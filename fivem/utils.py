@@ -2,36 +2,31 @@ import string
 
 class CustomUsersSort:
 
-    def __new__(cls, users, key='by_name', reverse=False):
+    def __new__(cls, users, key='by_name', reversed=False):
         self = object.__new__(cls)
         self._users = users
         self._key = self.get_key(key)
-        self._reverse = reverse
+        self._reversed = reversed
         return self.users
 
     @property    
     def users(self):
-        new_sort = sorted(self._users, key=self._key, reverse=self._reverse)
+        new_sort = sorted(self._users, key=self._key, reversed=self._reversed)
         return new_sort
      
     def get_key(self, key):
         keys = {
-            'by_name': self.by_name,
-            'by_id': self.by_id,
-            'by_ping': self.by_ping
+            'by_name': self._by_name,
+            'by_id'  : self._by_id,
+            'by_ping': self._by_ping
         }
         return keys.get(key)
 
-    def by_name(self, user):
-        leading_n = str()
-        for n in user.name.lower():
-            if n in string.ascii_lowercase:
-                leading_n = n 
-                break 
-        return leading_n
+    def _by_name(self, user): 
+        return ''.join(filter(str.isalpha, user.name)).lower()
 
-    def by_id(self, user):
+    def _by_id(self, user):
         return user.id
 
-    def by_ping(self, user):
+    def _by_ping(self, user):
         return user.ping
