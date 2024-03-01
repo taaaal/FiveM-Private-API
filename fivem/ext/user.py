@@ -1,9 +1,9 @@
 import re
 
-class Player:
+class User:
     
     '''
-    Represents FiveM Player
+    Represents FiveM User
     '''
     
     def __init__(self, data):
