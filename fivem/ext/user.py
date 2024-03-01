@@ -1,23 +1,23 @@
 import re
 
-class User:
+class Player:
     
-    def __init__(self, data: dict):
-        '''
-        User represents by FiveM player
-        `data` -> dict | User's data as a dict
-        '''
-        self.id = data.get('id')
+    '''
+    Represents FiveM Player
+    '''
+    
+    def __init__(self, data):
+        self.id   = data.get('id')
         self.name = data.get('name')
         self.ping = data.get('ping')
     
         based_identifiers = ('steam', 'licenese', 'discord', 'fivem') 
-        self.sort_identifiers(based_identifiers, data['identifiers'])
+        self.sort_identifiers(based_identifiers, data.get('identifiers'))
                               
-        self.steam_id = self.sorted_identifiers.get('steam_id')
+        self.steam_id   = self.sorted_identifiers.get('steam_id')
         self.license_id = self.sorted_identifiers.get('license_id')
         self.discord_id = self.sorted_identifiers.get('discord_id')
-        self.fivem_id = self.sorted_identifiers.get('fivem_id')
+        self.fivem_id   = self.sorted_identifiers.get('fivem_id')
     
     def sort_identifiers(self, based_identifiers, data_identifiers):
         self.sorted_identifiers = dict()
@@ -29,7 +29,7 @@ class User:
                     self.sorted_identifiers[clean_k] = clean_v
                     continue    
                        
-    def get_clean_id(self, identifier: str):
+    def get_clean_id(self, identifier):
         match = re.match('([a-z]+)\:([a-z0-9]+)', identifier)
         if not match:
             return None
