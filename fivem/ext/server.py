@@ -10,7 +10,7 @@ from fivem.ipformat import ServerIP
 class Server:
     
     """
-    Represent Online FiveM Server
+    Represents Online FiveM Server
     """
          
     __slots__ = ('_ip', '_max_players', '_status')
@@ -29,7 +29,7 @@ class Server:
         
     def __repr__(self):
         return '<{0.__class__.__name__} ip={0.ip} status={0.status}' \
-               ' online={1.online}/{1.max}>>'.format(self, self.sum_players)
+               ' online={1.online}/{1.max}>>'.format(self, self.players_count)
 
     def check_server_ip(self, ip):
         try:
@@ -40,6 +40,7 @@ class Server:
             return True
             
     async def get_players_data(self):
+        
         async def fetch(session, mode):
             base_url = 'http://{}/{}.json'.format(self.ip, mode)
             async with session.get(base_url) as resp:
@@ -53,6 +54,7 @@ class Server:
                 fetch(session, 'players'), 
                 fetch(session, 'info')
             )
+            
             self._players_data, self._info_data = map(json.loads, fetched)
 
 
@@ -74,7 +76,7 @@ class Server:
             yield User(player)
 
     @property
-    def sum_players(self):
+    def players_count(self):
         class OnlinePlayers:
             online = len(set(self.players))
             max    = self.max_players
