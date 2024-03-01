@@ -1,7 +1,7 @@
 class FakeServer:
     
     """
-    Represent Offline FiveM Server
+    Represents Offline FiveM Server
     """
 
     def __init__(self, ip):
@@ -11,7 +11,7 @@ class FakeServer:
 
     def __repr__(self):
         return '<{0.__class__.__name__} ip={0.ip} status={0.status}' \
-               ' online=0/0'.format(self)  
+               ' online={1.online}/{1.max}'.format(self, self.player_stats)
 
     @property
     def ip(self):
@@ -34,8 +34,8 @@ class FakeServer:
          return []
 
     @property
-    def sum_players(self):
+    def player_stats(self):
          class OnlinePlayers:
               online = 0
-              max = 0
-         return OnlinePlayers()
+              max    = 0
+         return OnlinePlayers
