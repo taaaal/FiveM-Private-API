@@ -9,8 +9,8 @@ class CustomUsersSort:
 
     @property    
     def users(self):
-        new_sort = sorted(self._users, key=self._key, reversed=self._reversed)
-        return new_sort
+        users = sorted(self._users, key=self._key, reversed=self._reversed)
+        return users
      
     def get_key(self, key):
         keys = {
@@ -31,6 +31,6 @@ class CustomUsersSort:
 
 class OnlinePlayers:
     
-    def __init__(self, online, max):
+    def __init__(self, online=0, max=0):
         self.online = online
         self.max = max
