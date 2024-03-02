@@ -1,3 +1,5 @@
+from fivem.utils import OnlinePlayers
+
 class FakeServer:
     
     """
@@ -31,7 +33,5 @@ class FakeServer:
 
     @property
     def players_count(self):
-         class OnlinePlayers:
-              online = len(self.players)
-              max    = self.max_players
-         return OnlinePlayers
+         return OnlinePlayers(online=len(self.players),
+                                 max=self.max_players)
