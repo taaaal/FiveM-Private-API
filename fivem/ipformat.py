@@ -18,8 +18,9 @@ class ServerIPValidator:
                 raise self._error
       
         def is_valid_ip(ip):
-            return len(parts) == 4 and \ 
-                   all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
+            octets = ip.split('.')
+            return len(octets) == 4 and \ 
+                   all(octet.isdigit() and 0 <= int(octet) <= 255 for octet in octets)
         
         def is_valid_port(port):
             return port.isdigit() and len(port) in (4, 5)
