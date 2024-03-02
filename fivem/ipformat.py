@@ -1,6 +1,6 @@
 from fivem.errors import BadIPFormat
 
-class ServerIP:
+class ServerIPValidator:
   
     def __init__(self):
         self._error = BadIPFormat('[ERROR] Incorrect IP format.')
@@ -10,13 +10,8 @@ class ServerIP:
         def is_valid_ip(ip):
             if ip.startswith(('fivem', 'www')):
                 return True
-            ip_parts = ip.split('.')
-            if len(ip_parts) != 4:
-                return False
-            for part in ip_parts:
-                if not part.isdigit() or not 0 <= int(part) <= 255:
-                    return False
-            return True
+            return len(parts) == 4 and \ 
+                   all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
         
         def is_valid_port(port):
             return port.isdigit() and len(port) in (4, 5)
@@ -30,4 +25,4 @@ class ServerIP:
             if not is valid: 
                 raise self._error
             converted = '{0}:{1}'.format(ip, port)
-            retutj converted 
+            return converted 
