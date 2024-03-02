@@ -1,5 +1,3 @@
-import string
-
 class CustomUsersSort:
 
     def __new__(cls, users, key='by_name', reversed=False):
@@ -30,3 +28,9 @@ class CustomUsersSort:
 
     def _by_ping(self, user):
         return user.ping
+
+class OnlinePlayers:
+    
+    def __init__(self, online, max):
+        self.online = online
+        self.max = max
