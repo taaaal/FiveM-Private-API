@@ -1,3 +1,6 @@
+import socket 
+
+from socket import gaierror 
 from fivem.errors import BadIPFormat
 
 class ServerIPValidator:
@@ -7,9 +10,14 @@ class ServerIPValidator:
         self._default_port = 30120
   
     def convert(self, argument):
+        
+        if argument.startswith(('fivem', 'www')):
+            try:
+                argument = socket.gethostbyname(argument)
+            except gaierror:
+                raise self._error
+      
         def is_valid_ip(ip):
-            if ip.startswith(('fivem', 'www')):
-                return True
             return len(parts) == 4 and \ 
                    all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
         
