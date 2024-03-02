@@ -13,7 +13,7 @@ class FakeServer:
 
     def __repr__(self):
         return '<{0.__class__.__name__} ip={0.ip} status={0.status}' \
-               ' online={1.online}/{1.max}'.format(self, self.players_count)
+               ' online={1.online}/{1.max}>'.format(self, self.players_count)
 
     @property
     def ip(self):
@@ -33,5 +33,4 @@ class FakeServer:
 
     @property
     def players_count(self):
-         return OnlinePlayers(online=len(self.players),
-                                 max=self.max_players)
+         return OnlinePlayers()
