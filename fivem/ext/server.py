@@ -5,7 +5,7 @@ import aiohttp
 from fivem.ext.user import User as Player
 from fivem.ext.fakeserver import FakeServer
 from fivem.errors import BadIPFormat, ServerNotRespond
-from fivem.ipformat import ServerIP
+from fivem.ipformat import ServerIPValidator
 from fivem.utils import OnlinePlayers
 
 class Server:
