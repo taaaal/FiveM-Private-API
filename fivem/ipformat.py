@@ -3,31 +3,31 @@ from fivem.errors import BadIPFormat
 class ServerIP:
   
     def __init__(self):
-        self.error = BadIPFormat('[ERROR] Incorrect IP format.')
-        self.default_port = 30120
+        self._error = BadIPFormat('[ERROR] Incorrect IP format.')
+        self._default_port = 30120
   
     def convert(self, argument):
-        def check_ip_format(ip, port):
+        def is_valid_ip(ip):
             if ip.startswith(('fivem', 'www')):
-                ip_status = True
-            else:
-                try:
-                    ip_list = ip.split('.')      
-                except ValueError:
-                    ip_status = False
-                else:
-                    ip_status = True
-            port_status = len(port) in (4, 5)
-            if ip_status and port_status:
                 return True
-            else:
+            ip_parts = ip.split('.')
+            if len(ip_parts) != 4:
                 return False
+            for part in ip_parts:
+                if not part.isdigit() or not 0 <= int(part) <= 255:
+                    return False
+            return True
+        
+        def is_valid_port(port):
+            return port.isdigit() and len(port) in (4, 5)
                 
         try:
             ip, port = argument.split(':')
         except ValueError:
-            port = self.default_port
-        if not check_ip_format(ip, port):
-            raise self.error
-        srvip = '{0}:{1}'.format(ip, port)
-        return srvip
+            port = self._default_port
+        finally:
+            is_valid = is_valid_ip(ip) and is_valid_port(port)
+            if not is valid: 
+                raise self._error
+            converted = '{0}:{1}'.format(ip, port)
+            retutj converted 
