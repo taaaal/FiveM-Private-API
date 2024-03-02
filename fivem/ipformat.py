@@ -31,7 +31,7 @@ class ServerIPValidator:
             port = self._default_port
         finally:
             is_valid = is_valid_ip(ip) and is_valid_port(port)
-            if not is valid: 
+            if not is_valid: 
                 raise self._error
             converted = '{0}:{1}'.format(ip, port)
             return converted 
