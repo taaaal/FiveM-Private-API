@@ -2,10 +2,11 @@ import asyncio
 import json
 import aiohttp
 
-from fivem.ext.user import User
+from fivem.ext.user import User as Player
 from fivem.ext.fakeserver import FakeServer
 from fivem.errors import BadIPFormat, ServerNotRespond
 from fivem.ipformat import ServerIP
+from fivem.utils import OnlinePlayers
 
 class Server:
     
@@ -17,7 +18,7 @@ class Server:
 
     def __new__(cls, ip, max_players=32):
         
-        result = self.check_server_ip(ip) 
+        result = self.is_server_ip_valid(ip) 
         if not result:
             return FakeServer(ip)
             
@@ -31,9 +32,9 @@ class Server:
         return '<{0.__class__.__name__} ip={0.ip} status={0.status}' \
                ' online={1.online}/{1.max}>>'.format(self, self.players_count)
 
-    def check_server_ip(self, ip):
+    def is_server_ip_valid(self, ip):
         try:
-            ServerIP().convert(ip)
+            ServerIPValidator().convert(ip)
         except BadIPFormat:
             return False
         else:
@@ -72,12 +73,10 @@ class Server:
                                               
     @property
     def players(self):
-        for player in self._players_data:
-            yield User(player)
+        for data in self._players_data:
+            yield Player(data)
 
     @property
     def players_count(self):
-        class OnlinePlayers:
-            online = len(set(self.players))
-            max    = self.max_players
-        return OnlinePlayers
+        return OnlinePlayers(online=len(set(self.players)),
+                                max=self.max_players)
