@@ -20,7 +20,8 @@ class ServerIPValidator:
         def is_valid_ip(ip):
             octets = ip.split('.')
             return len(octets) == 4 and \ 
-                   all(octet.isdigit() and 0 <= int(octet) <= 255 for octet in octets)
+                   all(octet.isdigit() and \
+                       0 <= int(octet) <= 255 for octet in octets)
         
         def is_valid_port(port):
             return port.isdigit() and len(port) in (4, 5)
